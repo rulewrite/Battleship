@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
-import { Cell } from './components';
+import { Cell } from '@Components';
 
 const App = () => {
   return (
