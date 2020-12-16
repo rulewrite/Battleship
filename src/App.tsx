@@ -1,13 +1,13 @@
 import React from 'react';
-import { Button, Container } from '@material-ui/core';
+import { Container } from '@material-ui/core';
+import { Cell } from './components';
 
 const App = () => {
   return (
-    <Container>
-      App
-      <Button variant="contained" color="primary">
-        sda
-      </Button>
+    <Container component="main">
+      <Cell />
+      <Cell />
+      <Cell />
     </Container>
   );
 };
