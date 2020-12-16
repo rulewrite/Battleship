@@ -1,11 +1,8 @@
 import { combineReducers } from 'redux';
-
-const test = (state = { test: 1 }, action: { type: string }) => {
-  return state;
-};
+import board from './board';
 
 const rootReducer = combineReducers({
-  test,
+  board,
 });
 
 export default rootReducer;
