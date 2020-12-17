@@ -18,15 +18,14 @@ interface BoardProps {
 }
 
 const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
-  console.log(rows);
   return (
     <Paper className={classes.paper}>
-      {rows
-        .map((columns, rowKey) => {
-          console.log(columns.size, columns.toJS(), rowKey);
-          return <Row columns={columns} key={rowKey} />;
-        })
-        .toList()}
+      {rows.map((row) => {
+        const key = row.get('key');
+        const columns = row.get('columns');
+
+        return <Row columns={columns} key={key} />;
+      })}
     </Paper>
   );
 };

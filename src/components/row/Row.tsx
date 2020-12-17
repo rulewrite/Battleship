@@ -8,22 +8,21 @@ const Row = ({ columns }: { columns: Columns }) => {
 
   return (
     <Grid container>
-      {columns
-        .map((column, columnKey) => {
-          return (
-            <Grid
-              item
-              key={columnKey}
-              style={{
-                maxWidth: `${GRID_WIDTH_PERCENT}%`,
-                flexBasis: `${GRID_WIDTH_PERCENT}%`,
-              }}
-            >
-              <Sea>{columnKey}</Sea>
-            </Grid>
-          );
-        })
-        .toList()}
+      {columns.map((column) => {
+        const key = column.get('key');
+        return (
+          <Grid
+            item
+            key={key}
+            style={{
+              maxWidth: `${GRID_WIDTH_PERCENT}%`,
+              flexBasis: `${GRID_WIDTH_PERCENT}%`,
+            }}
+          >
+            <Sea>{key}</Sea>
+          </Grid>
+        );
+      })}
     </Grid>
   );
 };
