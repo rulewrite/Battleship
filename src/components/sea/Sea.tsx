@@ -4,7 +4,7 @@ import { blue } from '@material-ui/core/colors';
 
 const Sea = withStyles({
   root: {
-    borderRight: '1px solid white',
+    border: '1px solid white',
     backgroundColor: blue[300],
     '&:hover': {
       backgroundColor: blue[700],
