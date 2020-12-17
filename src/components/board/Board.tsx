@@ -3,12 +3,11 @@ import { compose } from 'redux';
 import {
   withStyles,
   Paper,
-  Grid,
   createStyles,
   Theme,
   WithStyles,
 } from '@material-ui/core';
-import { Sea } from '@Components';
+import { Row } from '@Components';
 import { Rows } from 'redux/reducers/board';
 
 const styles = (theme: Theme) =>
@@ -24,20 +23,8 @@ const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
     <Paper className={classes.paper}>
       {rows
         .map((columns, rowKey) => {
-          console.log(columns.toJS(), rowKey);
-          return (
-            <Grid container key={rowKey}>
-              {columns
-                .map((column, columnKey) => {
-                  return (
-                    <Grid item xs key={`${rowKey}-${columnKey}`}>
-                      <Sea>{`${rowKey}-${columnKey}`}</Sea>
-                    </Grid>
-                  );
-                })
-                .toList()}
-            </Grid>
-          );
+          console.log(columns.size, columns.toJS(), rowKey);
+          return <Row columns={columns} key={rowKey} />;
         })
         .toList()}
     </Paper>

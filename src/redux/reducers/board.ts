@@ -8,7 +8,7 @@ interface Cell {
   isClicked: boolean;
 }
 
-type Columns = Map<string, Cell>;
+export type Columns = Map<string, Cell>;
 
 export type Rows = Map<string, Columns>;
 
