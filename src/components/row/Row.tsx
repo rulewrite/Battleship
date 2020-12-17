@@ -5,24 +5,17 @@ import { Columns } from '@Reducers/board';
 
 const Row = ({
   columns,
-  gridWidthPercentage,
+  gridItemStyle,
 }: {
   columns: Columns;
-  gridWidthPercentage: number;
+  gridItemStyle: React.CSSProperties;
 }) => {
   return (
     <Grid container>
       {columns.map((column) => {
         const key = column.get('key');
         return (
-          <Grid
-            item
-            key={key}
-            style={{
-              maxWidth: `${gridWidthPercentage}%`,
-              flexBasis: `${gridWidthPercentage}%`,
-            }}
-          >
+          <Grid item key={key} style={gridItemStyle}>
             <Sea>{key}</Sea>
           </Grid>
         );
