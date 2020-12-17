@@ -8,14 +8,10 @@ interface ImmutableMap<T> extends Map<string, any> {
   get<K extends keyof T>(name: K): T[K];
 }
 
-interface Cell {
-  isClicked: boolean;
-}
-
 export type Columns = List<
   ImmutableMap<{
     key: string;
-    cell: Cell;
+    isClicked: boolean;
   }>
 >;
 
@@ -30,9 +26,7 @@ const columns = fromJS(
   dumbArray.map((dumbValue, index) => {
     return {
       key: String(index + 1),
-      cell: {
-        isClicked: false,
-      },
+      isClicked: false,
     };
   })
 );
