@@ -18,13 +18,29 @@ interface BoardProps {
 }
 
 const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
+  const largestColumnSize = rows.reduce((largestColumnSize, row) => {
+    const size = row.get('columns')?.size;
+    if (largestColumnSize < size) {
+      return size;
+    }
+    return largestColumnSize;
+  }, 0);
+
+  const gridWidthPercentage = 100 / largestColumnSize;
+
   return (
     <Paper className={classes.paper}>
       {rows.map((row) => {
         const key = row.get('key');
         const columns = row.get('columns');
 
-        return <Row columns={columns} key={key} />;
+        return (
+          <Row
+            key={key}
+            columns={columns}
+            gridWidthPercentage={gridWidthPercentage}
+          />
+        );
       })}
     </Paper>
   );

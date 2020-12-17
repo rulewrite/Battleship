@@ -3,9 +3,13 @@ import { Grid } from '@material-ui/core';
 import { Sea } from '@Components';
 import { Columns } from '@Reducers/board';
 
-const Row = ({ columns }: { columns: Columns }) => {
-  const GRID_WIDTH_PERCENT = 100 / columns.size;
-
+const Row = ({
+  columns,
+  gridWidthPercentage,
+}: {
+  columns: Columns;
+  gridWidthPercentage: number;
+}) => {
   return (
     <Grid container>
       {columns.map((column) => {
@@ -15,8 +19,8 @@ const Row = ({ columns }: { columns: Columns }) => {
             item
             key={key}
             style={{
-              maxWidth: `${GRID_WIDTH_PERCENT}%`,
-              flexBasis: `${GRID_WIDTH_PERCENT}%`,
+              maxWidth: `${gridWidthPercentage}%`,
+              flexBasis: `${gridWidthPercentage}%`,
             }}
           >
             <Sea>{key}</Sea>
