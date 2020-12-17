@@ -1,16 +1,11 @@
-import React from 'react';
-import Sea from '../sea/Sea';
+import { Button, withStyles } from '@material-ui/core';
 
-const Cell = () => {
-  return (
-    <Sea
-      onClick={() => {
-        console.log(123);
-      }}
-    >
-      A
-    </Sea>
-  );
-};
+const Cell = withStyles({
+  root: {
+    borderRadius: 0,
+    width: '100%',
+    minWidth: 'initial',
+  },
+})(Button);
 
 export default Cell;
