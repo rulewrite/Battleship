@@ -7,7 +7,7 @@ import {
   WithStyles,
   withStyles,
 } from '@material-ui/core';
-import { Cell, Sea } from '@Components';
+import { Board, Sea } from '@Components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Row } from 'redux/reducers/board';
@@ -29,7 +29,7 @@ const App = ({ classes, board }: WithStyles<typeof styles> & AppProps) => {
     <Container component="main" className={classes.container}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <Cell>A</Cell>
+          <Board row={board} />
         </Grid>
 
         <Grid item xs={6}>
