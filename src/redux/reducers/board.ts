@@ -26,25 +26,25 @@ export type Rows = List<
   }>
 >;
 
-const columns = dumbArray.reduce<Columns>((columns, dumbValue, index) => {
-  return columns.push(
-    Map({
+const columns = fromJS(
+  dumbArray.map((dumbValue, index) => {
+    return {
       key: String(index + 1),
       cell: {
         isClicked: false,
       },
-    })
-  );
-}, List());
+    };
+  })
+);
 
-const rows = dumbArray.reduce<Rows>((rows, dumbValue, index) => {
-  return rows.push(
-    Map({
+const rows = fromJS(
+  dumbArray.map((dumbValue, index) => {
+    return {
       key: String.fromCharCode(A_CODE + index),
       columns,
-    })
-  );
-}, List());
+    };
+  })
+);
 
 // TODO: 희소 행렬에 맞는 자료 구조로 변경
 const initialState = rows;
