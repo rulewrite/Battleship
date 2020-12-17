@@ -10,7 +10,7 @@ import {
 import { Board, Sea } from '@Components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Rows } from 'redux/reducers/board';
+import { Rows } from '@Reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({

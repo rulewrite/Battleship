@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Sea } from '@Components';
-import { Columns } from 'redux/reducers/board';
+import { Columns } from '@Reducers/board';
 
 const Row = ({ columns }: { columns: Columns }) => {
   const GRID_WIDTH_PERCENT = 100 / columns.size;

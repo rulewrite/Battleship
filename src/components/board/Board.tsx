@@ -8,7 +8,7 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Row } from '@Components';
-import { Rows } from 'redux/reducers/board';
+import { Rows } from '@Reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({ paper: { padding: theme.spacing(2) } });
