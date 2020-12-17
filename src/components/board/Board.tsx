@@ -28,14 +28,18 @@ const getGridItemStyle = (gridWidthPercentage: number): CSSProperties => {
   };
 };
 
-const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
-  const largestColumnSize = rows.reduce((largestColumnSize, row) => {
+const getLargestColumnSize = (rows: Rows): number => {
+  return rows.reduce((largestColumnSize, row) => {
     const size = row.get('columns')?.size;
     if (largestColumnSize < size) {
       return size;
     }
     return largestColumnSize;
   }, 0);
+};
+
+const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
+  const largestColumnSize = getLargestColumnSize(rows);
 
   const gridWidthPercentage = 100 / largestColumnSize;
 
