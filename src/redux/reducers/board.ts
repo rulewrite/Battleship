@@ -22,6 +22,7 @@ const row: Row = dumbArray.reduce<Row>((row, value, index) => {
   return row.set(String.fromCharCode(A_CODE + index), column);
 }, Map());
 
+// TODO: 희소 행렬에 맞는 자료 구조로 변경
 const initialState = row;
 
 const board = (state = fromJS(initialState), action: { type: string }) => {
