@@ -10,7 +10,7 @@ import {
 import { Board, Sea } from '@Components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Row } from 'redux/reducers/board';
+import { Rows } from 'redux/reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -21,7 +21,7 @@ const styles = (theme: Theme) =>
   });
 
 interface AppProps {
-  board: Row;
+  board: Rows;
 }
 
 const App = ({ classes, board }: WithStyles<typeof styles> & AppProps) => {
@@ -29,7 +29,7 @@ const App = ({ classes, board }: WithStyles<typeof styles> & AppProps) => {
     <Container component="main" className={classes.container}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <Board row={board} />
+          <Board rows={board} />
         </Grid>
 
         <Grid item xs={6}>

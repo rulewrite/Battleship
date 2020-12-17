@@ -9,17 +9,17 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Cell, Sea } from '@Components';
-import { Row } from 'redux/reducers/board';
+import { Rows } from 'redux/reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({ paper: { padding: theme.spacing(2) } });
 
 interface BoardProps {
-  row: Row;
+  rows: Rows;
 }
 
-const Board = ({ classes, row }: WithStyles<typeof styles> & BoardProps) => {
-  console.log(row);
+const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
+  console.log(rows);
   return (
     <Paper className={classes.paper}>
       <Grid container>
