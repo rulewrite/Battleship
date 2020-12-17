@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import {
   Container,
   createStyles,
@@ -8,7 +8,9 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { Cell, Sea } from '@Components';
+import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { Row } from 'redux/reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -18,7 +20,11 @@ const styles = (theme: Theme) =>
     },
   });
 
-const App = ({ classes }: WithStyles<typeof styles>) => {
+interface AppProps {
+  board: Row;
+}
+
+const App = ({ classes, board }: WithStyles<typeof styles> & AppProps) => {
   return (
     <Container component="main" className={classes.container}>
       <Grid container spacing={3}>
@@ -34,4 +40,11 @@ const App = ({ classes }: WithStyles<typeof styles>) => {
   );
 };
 
-export default compose(withStyles(styles))(App);
+export default compose<ComponentType>(
+  withStyles(styles),
+  connect((state: any): any => {
+    return {
+      board: state.getIn(['board']),
+    };
+  })
+)(App);

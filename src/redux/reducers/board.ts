@@ -10,7 +10,7 @@ interface Cell {
 
 type Column = Map<string, Cell>;
 
-type Row = Map<string, Column>;
+export type Row = Map<string, Column>;
 
 const column = dumbArray.reduce<Column>((column, value, index) => {
   return column.set(String(index + 1), {
