@@ -44,7 +44,7 @@ export default compose<ComponentType>(
   withStyles(styles),
   connect((state: any): any => {
     return {
-      board: state.getIn(['board']),
+      board: state.getIn(['board', 'rows']),
     };
   })
 )(App);

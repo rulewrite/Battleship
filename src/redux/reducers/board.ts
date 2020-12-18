@@ -48,7 +48,7 @@ const rows: Rows = List(
 );
 
 // TODO: 희소 행렬에 맞는 자료 구조로 변경
-const initialState = rows;
+const initialState = { rows };
 
 const board = (state = fromJS(initialState), action: { type: string }) => {
   return state;
