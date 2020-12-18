@@ -1,3 +1,4 @@
+import { List } from 'immutable';
 import React, { ComponentType, CSSProperties } from 'react';
 import { compose } from 'redux';
 import {
@@ -8,7 +9,7 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Row } from '@Components';
-import { Rows } from '@Reducers/board';
+import { Rows, ColumnRecord } from '@Reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({ paper: { padding: theme.spacing(2) } });
@@ -40,13 +41,19 @@ const getLargestColumnSize = (rows: Rows): number => {
 
 const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
   const largestColumnSize = getLargestColumnSize(rows);
-
   const gridWidthPercentage = 100 / largestColumnSize;
-
   const gridItemStyle = getGridItemStyle(gridWidthPercentage);
+  const columnHeaders = List([...Array(largestColumnSize)]).map(
+    (dumbValue, index) =>
+      ColumnRecord({
+        key: String(index + 1),
+      })
+  );
 
   return (
     <Paper className={classes.paper}>
+      <Row columns={columnHeaders} gridItemStyle={gridItemStyle} />
+
       {rows.map((row) => {
         const key = row.get('key');
         const columns = row.get('columns');
