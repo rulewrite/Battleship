@@ -8,11 +8,13 @@ const dumbArray = [...Array(NUBMER_OF_BOARD_SIZE)];
 interface Column {
   key: null | string;
   isClicked: boolean;
+  type: 'sea' | 'cell';
 }
 
 export const ColumnRecord = Record<Column>({
   key: null,
   isClicked: false,
+  type: 'cell',
 });
 
 export type Columns = List<RecordOf<Column>>;
@@ -21,6 +23,7 @@ const columns: Columns = List(
   dumbArray.map((dumbValue, index) => {
     return ColumnRecord({
       key: String(index + 1),
+      type: 'sea',
     });
   })
 );

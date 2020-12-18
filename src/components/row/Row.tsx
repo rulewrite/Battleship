@@ -1,7 +1,12 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import { Sea } from '@Components';
+import { Sea, Cell } from '@Components';
 import { Columns } from '@Reducers/board';
+
+const mapTypeToInnerComponent = new Map<string, React.ComponentType>([
+  ['cell', Cell],
+  ['sea', Sea],
+]);
 
 const Row = ({
   columns,
@@ -14,9 +19,17 @@ const Row = ({
     <Grid container>
       {columns.map((column) => {
         const key = column.get('key');
+        const type = column.get('type');
+
+        const InnerComponent = mapTypeToInnerComponent.get(type);
+
+        if (!InnerComponent) {
+          return null;
+        }
+
         return (
           <Grid item key={key} style={gridItemStyle}>
-            <Sea>{key}</Sea>
+            <InnerComponent>{key}</InnerComponent>
           </Grid>
         );
       })}
