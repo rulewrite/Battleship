@@ -21,7 +21,6 @@ const columns: Columns = List(
   dumbArray.map((dumbValue, index) => {
     return ColumnRecord({
       key: String(index + 1),
-      isClicked: false,
     });
   })
 );
