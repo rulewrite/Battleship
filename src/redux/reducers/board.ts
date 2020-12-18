@@ -1,42 +1,49 @@
-import { fromJS, List, Map } from 'immutable';
+import { fromJS, List, Record } from 'immutable';
+import type { RecordOf } from 'immutable';
 
 const A_CODE = 65;
 const NUBMER_OF_BOARD_SIZE = 10;
 const dumbArray = [...Array(NUBMER_OF_BOARD_SIZE)];
 
-interface ImmutableMap<T> extends Map<string, any> {
-  get<K extends keyof T>(name: K): T[K];
+interface Column {
+  key: null | string;
+  isClicked: boolean;
 }
 
-export type Columns = List<
-  ImmutableMap<{
-    key: string;
-    isClicked: boolean;
-  }>
->;
+export const ColumnRecord = Record<Column>({
+  key: null,
+  isClicked: false,
+});
 
-export type Rows = List<
-  ImmutableMap<{
-    key: string;
-    columns: Columns;
-  }>
->;
+export type Columns = List<RecordOf<Column>>;
 
-const columns = fromJS(
+const columns: Columns = List(
   dumbArray.map((dumbValue, index) => {
-    return {
+    return ColumnRecord({
       key: String(index + 1),
       isClicked: false,
-    };
+    });
   })
 );
 
-const rows = fromJS(
+interface Row {
+  key: null | string;
+  columns: Columns;
+}
+
+const RowRecord = Record<Row>({
+  key: null,
+  columns: List([]),
+});
+
+export type Rows = List<RecordOf<Row>>;
+
+const rows: Rows = List(
   dumbArray.map((dumbValue, index) => {
-    return {
+    return RowRecord({
       key: String.fromCharCode(A_CODE + index),
       columns,
-    };
+    });
   })
 );
 
