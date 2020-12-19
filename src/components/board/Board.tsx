@@ -58,7 +58,28 @@ const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
   );
 };
 
-const withBoardHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
+const withColumnHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
+  rows,
+  ...otherProps
+}: BoardProps) => {
+  const columnKey = ' ';
+  const columnHeaders = RowRecord({
+    key: columnKey,
+    columns: List(
+      [...Array(getLargestColumnSize(rows))].map((dumbValue, index) => {
+        return ColumnRecord({
+          key: String(index + 1),
+        });
+      })
+    ),
+  });
+
+  const rowsWithColumnHeaders = rows.unshift(columnHeaders);
+
+  return <WrappedComponent {...otherProps} rows={rowsWithColumnHeaders} />;
+};
+
+const withRowHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
   rows,
   ...otherProps
 }: BoardProps) => {
@@ -75,34 +96,11 @@ const withBoardHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
     return row.set('columns', columns.unshift(rowHeader as Column));
   });
 
-  const columnHeaders = RowRecord({
-    key: 'columnHeaders',
-    columns: List([
-      ColumnRecord({
-        key: ' ',
-      }),
-    ]).concat(
-      [...Array(getLargestColumnSize(rows))].map((dumbValue, index) =>
-        ColumnRecord({
-          key: String(index + 1),
-        })
-      )
-    ),
-  });
-
-  const rowWithRowHeadersWithColumnHeaders = rowWithRowHeaders.unshift(
-    columnHeaders
-  );
-
-  return (
-    <WrappedComponent
-      {...otherProps}
-      rows={rowWithRowHeadersWithColumnHeaders}
-    />
-  );
+  return <WrappedComponent {...otherProps} rows={rowWithRowHeaders} />;
 };
 
 export default compose<ComponentType<BoardProps>>(
-  withBoardHeaders,
+  withColumnHeaders,
+  withRowHeaders,
   withStyles(styles)
 )(Board);
