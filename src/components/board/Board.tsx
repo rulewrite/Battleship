@@ -40,6 +40,28 @@ const getLargestColumnSize = (rows: Rows): number => {
 };
 
 const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
+  const largestColumnSize = getLargestColumnSize(rows);
+  const gridWidthPercentage = 100 / largestColumnSize;
+  const gridItemStyle = getGridItemStyle(gridWidthPercentage);
+
+  return (
+    <Paper className={classes.paper}>
+      {rows.map((row) => {
+        const key = row.get('key');
+        const columns = row.get('columns');
+
+        return (
+          <Row key={key} columns={columns} gridItemStyle={gridItemStyle} />
+        );
+      })}
+    </Paper>
+  );
+};
+
+const withBoardHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
+  rows,
+  ...otherProps
+}: BoardProps) => {
   const rowKeys = rows.map((row) => row.get('key'));
   const rowHeaders = rowKeys.map((rowKey) =>
     ColumnRecord({
@@ -73,24 +95,15 @@ const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
     })
   );
 
-  const largestColumnSize = getLargestColumnSize(
-    rowWithRowHeadersWithColumnHeaders
-  );
-  const gridWidthPercentage = 100 / largestColumnSize;
-  const gridItemStyle = getGridItemStyle(gridWidthPercentage);
-
   return (
-    <Paper className={classes.paper}>
-      {rowWithRowHeadersWithColumnHeaders.map((row) => {
-        const key = row.get('key');
-        const columns = row.get('columns');
-
-        return (
-          <Row key={key} columns={columns} gridItemStyle={gridItemStyle} />
-        );
-      })}
-    </Paper>
+    <WrappedComponent
+      {...otherProps}
+      rows={rowWithRowHeadersWithColumnHeaders}
+    />
   );
 };
 
-export default compose<ComponentType<BoardProps>>(withStyles(styles))(Board);
+export default compose<ComponentType<BoardProps>>(
+  withBoardHeaders,
+  withStyles(styles)
+)(Board);
