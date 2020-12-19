@@ -40,21 +40,43 @@ const getLargestColumnSize = (rows: Rows): number => {
 };
 
 const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
-  const largestColumnSize = getLargestColumnSize(rows);
+  const rowKeys = rows.map((row) => row.get('key'));
+  const rowHeaders = rowKeys.map((rowKey) =>
+    ColumnRecord({
+      key: rowKey,
+    })
+  );
+  const rowWithRowHeaders = rows.map((row, rowIndex) => {
+    const rowHeader = rowHeaders.get(rowIndex);
+    if (!rowHeader) {
+      return row;
+    }
+
+    const columns = row.get('columns');
+    return row.set('columns', columns.unshift(rowHeader));
+  });
+
+  const largestColumnSize = getLargestColumnSize(rowWithRowHeaders);
   const gridWidthPercentage = 100 / largestColumnSize;
   const gridItemStyle = getGridItemStyle(gridWidthPercentage);
-  const columnHeaders = List([...Array(largestColumnSize)]).map(
-    (dumbValue, index) =>
+
+  const columnHeaders = List([
+    ColumnRecord({
+      key: ' ',
+    }),
+  ]).concat(
+    [...Array(getLargestColumnSize(rows))].map((dumbValue, index) =>
       ColumnRecord({
         key: String(index + 1),
       })
+    )
   );
 
   return (
     <Paper className={classes.paper}>
       <Row columns={columnHeaders} gridItemStyle={gridItemStyle} />
 
-      {rows.map((row) => {
+      {rowWithRowHeaders.map((row) => {
         const key = row.get('key');
         const columns = row.get('columns');
 
