@@ -33,7 +33,7 @@ interface Row {
   columns: Columns;
 }
 
-const RowRecord = Record<Row>({
+export const RowRecord = Record<Row>({
   key: null,
   columns: List([]),
 });

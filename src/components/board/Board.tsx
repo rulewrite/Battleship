@@ -9,7 +9,7 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Row } from '@Components';
-import { Rows, ColumnRecord } from '@Reducers/board';
+import { Rows, ColumnRecord, RowRecord } from '@Reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({ paper: { padding: theme.spacing(2) } });
@@ -56,27 +56,32 @@ const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
     return row.set('columns', columns.unshift(rowHeader));
   });
 
-  const largestColumnSize = getLargestColumnSize(rowWithRowHeaders);
+  const rowWithRowHeadersWithColumnHeaders = rowWithRowHeaders.unshift(
+    RowRecord({
+      key: '',
+      columns: List([
+        ColumnRecord({
+          key: ' ',
+        }),
+      ]).concat(
+        [...Array(getLargestColumnSize(rows))].map((dumbValue, index) =>
+          ColumnRecord({
+            key: String(index + 1),
+          })
+        )
+      ),
+    })
+  );
+
+  const largestColumnSize = getLargestColumnSize(
+    rowWithRowHeadersWithColumnHeaders
+  );
   const gridWidthPercentage = 100 / largestColumnSize;
   const gridItemStyle = getGridItemStyle(gridWidthPercentage);
 
-  const columnHeaders = List([
-    ColumnRecord({
-      key: ' ',
-    }),
-  ]).concat(
-    [...Array(getLargestColumnSize(rows))].map((dumbValue, index) =>
-      ColumnRecord({
-        key: String(index + 1),
-      })
-    )
-  );
-
   return (
     <Paper className={classes.paper}>
-      <Row columns={columnHeaders} gridItemStyle={gridItemStyle} />
-
-      {rowWithRowHeaders.map((row) => {
+      {rowWithRowHeadersWithColumnHeaders.map((row) => {
         const key = row.get('key');
         const columns = row.get('columns');
 
