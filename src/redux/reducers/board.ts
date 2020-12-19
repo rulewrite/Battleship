@@ -5,19 +5,21 @@ const A_CODE = 65;
 const NUBMER_OF_BOARD_SIZE = 10;
 const dumbArray = [...Array(NUBMER_OF_BOARD_SIZE)];
 
-interface Column {
+type ColumnProps = {
   key: null | string;
   isClicked: boolean;
   type: 'sea' | 'cell';
-}
+};
 
-export const ColumnRecord = Record<Column>({
+export const ColumnRecord = Record<ColumnProps>({
   key: null,
   isClicked: false,
   type: 'cell',
 });
 
-export type Columns = List<RecordOf<Column>>;
+export type Column = RecordOf<ColumnProps>;
+
+export type Columns = List<Column>;
 
 const columns: Columns = List(
   dumbArray.map((dumbValue, index) => {
@@ -28,17 +30,19 @@ const columns: Columns = List(
   })
 );
 
-interface Row {
+type RowProps = {
   key: null | string;
   columns: Columns;
-}
+};
 
-export const RowRecord = Record<Row>({
+export const RowRecord = Record<RowProps>({
   key: null,
   columns: List([]),
 });
 
-export type Rows = List<RecordOf<Row>>;
+export type Row = RecordOf<RowProps>;
+
+export type Rows = List<Row>;
 
 const rows: Rows = List(
   dumbArray.map((dumbValue, index) => {

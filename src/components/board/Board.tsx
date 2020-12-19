@@ -9,7 +9,7 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Row } from '@Components';
-import { Rows, ColumnRecord, RowRecord } from '@Reducers/board';
+import { Rows, ColumnRecord, RowRecord, Column } from '@Reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({ paper: { padding: theme.spacing(2) } });
@@ -70,29 +70,28 @@ const withBoardHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
   );
   const rowWithRowHeaders = rows.map((row, rowIndex) => {
     const rowHeader = rowHeaders.get(rowIndex);
-    if (!rowHeader) {
-      return row;
-    }
 
     const columns = row.get('columns');
-    return row.set('columns', columns.unshift(rowHeader));
+    return row.set('columns', columns.unshift(rowHeader as Column));
+  });
+
+  const columnHeaders = RowRecord({
+    key: 'columnHeaders',
+    columns: List([
+      ColumnRecord({
+        key: ' ',
+      }),
+    ]).concat(
+      [...Array(getLargestColumnSize(rows))].map((dumbValue, index) =>
+        ColumnRecord({
+          key: String(index + 1),
+        })
+      )
+    ),
   });
 
   const rowWithRowHeadersWithColumnHeaders = rowWithRowHeaders.unshift(
-    RowRecord({
-      key: '',
-      columns: List([
-        ColumnRecord({
-          key: ' ',
-        }),
-      ]).concat(
-        [...Array(getLargestColumnSize(rows))].map((dumbValue, index) =>
-          ColumnRecord({
-            key: String(index + 1),
-          })
-        )
-      ),
-    })
+    columnHeaders
   );
 
   return (
