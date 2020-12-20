@@ -1,13 +1,13 @@
 import React, { ComponentType } from 'react';
-import { BoardProps } from '@Components/Board';
+import { ComposedProps } from '@Components/Board';
 import { RecordOf } from 'immutable';
 import { CellFactory, CellProps } from '@Components/Row';
 
-const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({
+const withRowsHeader = (WrappedComponent: ComponentType<ComposedProps>) => ({
   rows,
   cellsHeader,
   ...otherProps
-}: BoardProps) => {
+}: ComposedProps) => {
   const otherPropsWithIncludeRowsHeader = {
     ...otherProps,
     includedRowsHeader: true,

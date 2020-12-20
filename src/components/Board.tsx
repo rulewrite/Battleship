@@ -4,6 +4,9 @@ import { Panel, Row } from '@Components';
 import { withRowsHeader, withCellsHeader } from '@Hoc';
 import { Cells } from '@Components/Row';
 import { List, Record, RecordOf } from 'immutable';
+import { Fleet } from '@Reducers/fleet';
+import { connect, ConnectedProps } from 'react-redux';
+import { createFleet } from '@Actions';
 
 interface RowProps {
   key: null | string;
@@ -18,9 +21,7 @@ export const RowFactory = Record<RowProps>({
 export type Rows = List<RecordOf<RowProps>>;
 
 export interface BoardProps {
-  includedRowsHeader?: boolean;
-  cellsHeader?: Cells;
-  rows: Rows;
+  id: string;
 }
 
 const getCellStyle = (cellSize: number): CSSProperties => {
@@ -49,7 +50,47 @@ export const getLargestCellSize = (rows: Rows): number => {
   }, 0);
 };
 
-const Board = ({ rows, cellsHeader }: BoardProps) => {
+const connector = connect(
+  (state: any) => {
+    const playerFleet: Fleet = state.getIn(['fleet', 'player']);
+
+    if (!playerFleet) {
+      return {
+        rows: List([]),
+      };
+    }
+
+    return {
+      rows: playerFleet.map((pointsRecord) => {
+        return RowFactory({
+          key: pointsRecord.get('key'),
+          cells: pointsRecord.get('points'),
+        });
+      }),
+    };
+  },
+  {
+    createFleet,
+  }
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export type ComposedProps = BoardProps &
+  PropsFromRedux & {
+    includedRowsHeader?: boolean;
+    cellsHeader?: Cells;
+  };
+
+const Board = ({ id, rows, cellsHeader, createFleet }: ComposedProps) => {
+  React.useEffect(() => {
+    createFleet(id);
+  }, [createFleet, id]);
+
+  if (!rows) {
+    return null;
+  }
+
   const largestCellSize = getLargestCellSize(rows);
   const cellStyle = getCellStyle(largestCellSize);
 
@@ -68,6 +109,7 @@ const Board = ({ rows, cellsHeader }: BoardProps) => {
 };
 
 export default compose<ComponentType<BoardProps>>(
+  connector,
   withRowsHeader,
   withCellsHeader
 )(Board);

@@ -1,10 +1,10 @@
 import { List } from 'immutable';
 import React, { ComponentType } from 'react';
-import { BoardProps, getLargestCellSize } from '@Components/Board';
+import { ComposedProps, getLargestCellSize } from '@Components/Board';
 import { CellFactory } from '@Components/Row';
 
-const withCellsHeader = (WrappedComponent: ComponentType<BoardProps>) => (
-  props: BoardProps
+const withCellsHeader = (WrappedComponent: ComponentType<ComposedProps>) => (
+  props: ComposedProps
 ) => {
   const { rows, includedRowsHeader } = props;
   const cellsHeader = List(
