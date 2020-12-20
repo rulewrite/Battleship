@@ -5,25 +5,25 @@ const A_CODE = 65;
 const NUBMER_OF_BOARD_SIZE = 10;
 const dumbArray = [...Array(NUBMER_OF_BOARD_SIZE)];
 
-type ColumnProps = {
+type PointProps = {
   key: null | string;
   isClicked: boolean;
   type: 'SEA' | 'CELL';
 };
 
-export const ColumnFactory = Record<ColumnProps>({
+export const PointFactory = Record<PointProps>({
   key: null,
   isClicked: false,
   type: 'CELL',
 });
 
-export type Column = RecordOf<ColumnProps>;
+export type Point = RecordOf<PointProps>;
 
-export type Columns = List<Column>;
+export type Points = List<Point>;
 
-const columns: Columns = List(
+const points: Points = List(
   dumbArray.map((dumbValue, index) => {
-    return ColumnFactory({
+    return PointFactory({
       key: String(index + 1),
       type: 'SEA',
     });
@@ -32,12 +32,12 @@ const columns: Columns = List(
 
 type RowProps = {
   key: null | string;
-  columns: Columns;
+  points: Points;
 };
 
 export const RowFactory = Record<RowProps>({
   key: null,
-  columns: List([]),
+  points: List([]),
 });
 
 export type Row = RecordOf<RowProps>;
@@ -48,7 +48,7 @@ const rows: Rows = List(
   dumbArray.map((dumbValue, index) => {
     return RowFactory({
       key: String.fromCharCode(A_CODE + index),
-      columns,
+      points,
     });
   })
 );

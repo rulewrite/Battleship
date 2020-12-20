@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Sea, Cell } from '@Components';
-import { Columns } from '@Reducers/board';
+import { Points } from '@Reducers/board';
 
 const mapTypeToInnerComponent = new Map<string, React.ComponentType>([
   ['CELL', Cell],
@@ -12,7 +12,7 @@ const Row = ({
   cells,
   gridItemStyle,
 }: {
-  cells: Columns;
+  cells: Points;
   gridItemStyle: React.CSSProperties;
 }) => {
   return (
