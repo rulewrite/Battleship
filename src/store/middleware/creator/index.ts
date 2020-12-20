@@ -16,7 +16,7 @@ const creator: Middleware<{}, State> = (store) => (next) => (
         ...otherAction,
         payload: {
           ...payload,
-          response: fleetCreator(),
+          response: fleetCreator(payload?.size),
         },
       });
       return;

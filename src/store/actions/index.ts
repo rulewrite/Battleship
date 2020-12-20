@@ -8,9 +8,10 @@ export interface Action extends ReduxAction {
   };
 }
 
-export const createFleet = (id: string): Action => ({
+export const createFleet = (id: string, size?: number): Action => ({
   type: actionTypes.CREATE_FLEET,
   payload: {
     id,
+    size,
   },
 });
