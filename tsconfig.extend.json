@@ -4,7 +4,12 @@
     "paths": {
       "@Components": ["./components"],
       "@Components/*": ["./components/*"],
+
       "@Reducers/*": ["./store/reducers/*"],
+
+      "@Actions": ["./store/actions"],
+      "@ActionTypes": ["./store/actions/actionTypes.ts"],
+
       "@Hoc": ["./hoc"],
       "@Hoc/*": ["./hoc/*"]
     }

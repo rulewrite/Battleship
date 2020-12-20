@@ -1,6 +1,8 @@
 import { Map, List, Record } from 'immutable';
 import type { RecordOf } from 'immutable';
 import { CellProps } from '@Components/Row';
+import { Action } from '@Actions';
+import { CREATE_FLEET } from '@ActionTypes';
 
 const A_CODE = 65;
 const NUBMER_OF_FLEET_SIZE = 10;
@@ -50,12 +52,16 @@ const pointsRecords: Fleet = List(
 );
 
 // TODO: 희소 행렬에 맞는 자료 구조로 변경
-const initialState: Map<string, Fleet> = Map({
-  player: pointsRecords,
-  computer: pointsRecords,
-});
+const initialState: Map<string, Fleet> = Map({});
 
-const fleet = (state = initialState, action: { type: string }) => {
+const fleet = (state = initialState, { type, payload }: Action) => {
+  switch (type) {
+    case CREATE_FLEET:
+      if (!payload) {
+        return state;
+      }
+      return state.set(payload.id, pointsRecords);
+  }
   return state;
 };
 
