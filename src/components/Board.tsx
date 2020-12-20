@@ -4,7 +4,7 @@ import { Panel, Row } from '@Components';
 import { withRowsHeader, withCellsHeader } from '@Hoc';
 import { Cells } from '@Components/Row';
 import { List, Record, RecordOf } from 'immutable';
-import { Fleet } from '@Reducers/fleet';
+import { Fleet } from '@Creator/fleetCreator';
 import { connect, ConnectedProps } from 'react-redux';
 import { createFleet } from '@Actions';
 

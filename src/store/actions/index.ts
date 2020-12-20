@@ -3,6 +3,7 @@ import * as actionTypes from './actionTypes';
 
 export interface Action extends ReduxAction {
   payload?: {
+    response?: any;
     [payloadName: string]: any;
   };
 }

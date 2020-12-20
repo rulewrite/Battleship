@@ -10,6 +10,9 @@
       "@Actions": ["./store/actions"],
       "@ActionTypes": ["./store/actions/actionTypes.ts"],
 
+      "@Creator": ["./store/middleware/creator"],
+      "@Creator/*": ["./store/middleware/creator/*"],
+
       "@Hoc": ["./hoc"],
       "@Hoc/*": ["./hoc/*"]
     }
