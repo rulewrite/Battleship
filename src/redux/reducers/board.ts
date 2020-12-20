@@ -8,13 +8,13 @@ const dumbArray = [...Array(NUBMER_OF_BOARD_SIZE)];
 type ColumnProps = {
   key: null | string;
   isClicked: boolean;
-  type: 'sea' | 'cell';
+  type: 'SEA' | 'CELL';
 };
 
 export const ColumnFactory = Record<ColumnProps>({
   key: null,
   isClicked: false,
-  type: 'cell',
+  type: 'CELL',
 });
 
 export type Column = RecordOf<ColumnProps>;
@@ -25,7 +25,7 @@ const columns: Columns = List(
   dumbArray.map((dumbValue, index) => {
     return ColumnFactory({
       key: String(index + 1),
-      type: 'sea',
+      type: 'SEA',
     });
   })
 );

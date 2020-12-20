@@ -4,8 +4,8 @@ import { Sea, Cell } from '@Components';
 import { Columns } from '@Reducers/board';
 
 const mapTypeToInnerComponent = new Map<string, React.ComponentType>([
-  ['cell', Cell],
-  ['sea', Sea],
+  ['CELL', Cell],
+  ['SEA', Sea],
 ]);
 
 const Row = ({
