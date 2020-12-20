@@ -9,17 +9,17 @@ const mapTypeToInnerComponent = new Map<string, React.ComponentType>([
 ]);
 
 const Row = ({
-  columns,
+  cells,
   gridItemStyle,
 }: {
-  columns: Columns;
+  cells: Columns;
   gridItemStyle: React.CSSProperties;
 }) => {
   return (
     <Grid container>
-      {columns.map((column) => {
-        const key = column.get('key');
-        const type = column.get('type');
+      {cells.map((cell) => {
+        const key = cell.get('key');
+        const type = cell.get('type');
 
         const InnerComponent = mapTypeToInnerComponent.get(type);
 

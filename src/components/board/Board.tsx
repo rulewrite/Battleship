@@ -50,9 +50,7 @@ const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
         const key = row.get('key');
         const columns = row.get('columns');
 
-        return (
-          <Row key={key} columns={columns} gridItemStyle={gridItemStyle} />
-        );
+        return <Row key={key} cells={columns} gridItemStyle={gridItemStyle} />;
       })}
     </Paper>
   );
