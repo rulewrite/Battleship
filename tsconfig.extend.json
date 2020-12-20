@@ -13,8 +13,7 @@
       "@Creator": ["./store/middleware/creator"],
       "@Creator/*": ["./store/middleware/creator/*"],
 
-      "@Hoc": ["./hoc"],
-      "@Hoc/*": ["./hoc/*"]
+      "@Hoc": ["./hoc"]
     }
   }
 }

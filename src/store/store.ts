@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer, { State } from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import creator from './middleware/creator';
+import creator from '@Creator';
 
 const configureStore = (preloadedState?: State) => {
   const middleware = applyMiddleware(thunk, creator);
