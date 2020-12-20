@@ -9,17 +9,13 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Row } from '@Components';
-import {
-  PointsRecords,
-  PointFactory,
-  PointsRecordFactory,
-  Point,
-} from '@Reducers/board';
+import { PointsRecords, PointFactory, Point, Points } from '@Reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({ paper: { padding: theme.spacing(2) } });
 
 interface BoardProps {
+  cellsHeader?: Points;
   rows: PointsRecords;
 }
 
@@ -49,12 +45,18 @@ const getLargestCellSize = (rows: PointsRecords): number => {
   }, 0);
 };
 
-const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
+const Board = ({
+  classes,
+  rows,
+  cellsHeader,
+}: WithStyles<typeof styles> & BoardProps) => {
   const largestCellSize = getLargestCellSize(rows);
   const gridItemStyle = getGridItemStyle(largestCellSize);
 
   return (
     <Paper className={classes.paper}>
+      {cellsHeader && <Row cells={cellsHeader} gridItemStyle={gridItemStyle} />}
+
       {rows.map((row) => {
         const key = row.get('key');
         const points = row.get('points');
@@ -65,28 +67,24 @@ const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
   );
 };
 
-const withPointHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
-  rows,
-  ...otherProps
-}: BoardProps) => {
-  const pointHeaders = PointsRecordFactory({
-    key: ' ',
-    points: List(
-      [...Array(getLargestCellSize(rows))].map((dumbValue, index) => {
-        return PointFactory({
-          key: String(index + 1),
-        });
-      })
-    ),
-  });
+const withCellsHeader = (WrappedComponent: ComponentType<BoardProps>) => (
+  props: BoardProps
+) => {
+  const { rows } = props;
+  const cellsHeader = List(
+    [...Array(getLargestCellSize(rows))].map((dumbValue, index) => {
+      return PointFactory({
+        key: String(index + 1),
+      });
+    })
+  );
 
-  const rowsWithPointHeaders = rows.unshift(pointHeaders);
-
-  return <WrappedComponent {...otherProps} rows={rowsWithPointHeaders} />;
+  return <WrappedComponent {...props} cellsHeader={cellsHeader} />;
 };
 
 const withRowHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
   rows,
+  cellsHeader,
   ...otherProps
 }: BoardProps) => {
   const rowKeys = rows.map((row) => row.get('key'));
@@ -102,11 +100,26 @@ const withRowHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
     return row.set('points', points.unshift(rowHeader as Point));
   });
 
-  return <WrappedComponent {...otherProps} rows={rowWithRowHeaders} />;
+  if (!cellsHeader) {
+    return <WrappedComponent {...otherProps} rows={rowWithRowHeaders} />;
+  }
+
+  const cellsHeaderWithRowHeader = cellsHeader.unshift(
+    PointFactory({
+      key: ' ',
+    })
+  );
+  return (
+    <WrappedComponent
+      {...otherProps}
+      rows={rowWithRowHeaders}
+      cellsHeader={cellsHeaderWithRowHeader}
+    />
+  );
 };
 
 export default compose<ComponentType<BoardProps>>(
-  withPointHeaders,
+  withCellsHeader,
   withRowHeaders,
   withStyles(styles)
 )(Board);
