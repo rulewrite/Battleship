@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import configureStore from './redux/store';
+import configureStore from './store/store';
 import 'fontsource-roboto';
 import 'fontsource-roboto/500.css';
 
