@@ -11,7 +11,7 @@ import { Board, Sea } from '@Components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { RowFactory, Rows } from '@Components/Board';
-import { PointsRecords } from '@Reducers/fleet';
+import { Fleet } from '@Reducers/fleet';
 import { List } from 'immutable';
 
 const styles = (theme: Theme) =>
@@ -46,19 +46,16 @@ export default compose<ComponentType>(
   withStyles(styles),
   connect(
     (state: any): AppProps => {
-      const pointsRecords: PointsRecords = state.getIn([
-        'fleet',
-        'pointsRecords',
-      ]);
+      const playerFleet: Fleet = state.getIn(['fleet', 'player']);
 
-      if (!pointsRecords) {
+      if (!playerFleet) {
         return {
           rows: List([]),
         };
       }
 
       return {
-        rows: pointsRecords.map((pointsRecord) => {
+        rows: playerFleet.map((pointsRecord) => {
           return RowFactory({
             key: pointsRecord.get('key'),
             cells: pointsRecord.get('points'),

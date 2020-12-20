@@ -1,4 +1,4 @@
-import { fromJS, List, Record } from 'immutable';
+import { Map, List, Record } from 'immutable';
 import type { RecordOf } from 'immutable';
 import { CellProps } from '@Components/Row';
 
@@ -38,9 +38,9 @@ const PointsRecordFactory = Record<PointsRecordProps>({
 
 type PointsRecord = RecordOf<PointsRecordProps>;
 
-export type PointsRecords = List<PointsRecord>;
+export type Fleet = List<PointsRecord>;
 
-const pointsRecords: PointsRecords = List(
+const pointsRecords: Fleet = List(
   dumbArray.map((dumbValue, index) => {
     return PointsRecordFactory({
       key: String.fromCharCode(A_CODE + index),
@@ -50,9 +50,12 @@ const pointsRecords: PointsRecords = List(
 );
 
 // TODO: 희소 행렬에 맞는 자료 구조로 변경
-const initialState = { pointsRecords };
+const initialState: Map<string, Fleet> = Map({
+  player: pointsRecords,
+  computer: pointsRecords,
+});
 
-const fleet = (state = fromJS(initialState), action: { type: string }) => {
+const fleet = (state = initialState, action: { type: string }) => {
   return state;
 };
 
