@@ -21,15 +21,15 @@ const styles = (theme: Theme) =>
   });
 
 interface AppProps {
-  board: Rows;
+  rows: Rows;
 }
 
-const App = ({ classes, board }: WithStyles<typeof styles> & AppProps) => {
+const App = ({ classes, rows }: WithStyles<typeof styles> & AppProps) => {
   return (
     <Container component="main" className={classes.container}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <Board rows={board} />
+          <Board rows={rows} />
         </Grid>
 
         <Grid item xs={6}>
@@ -44,7 +44,7 @@ export default compose<ComponentType>(
   withStyles(styles),
   connect((state: any): any => {
     return {
-      board: state.getIn(['board', 'rows']),
+      rows: state.getIn(['board', 'rows']),
     };
   })
 )(App);
