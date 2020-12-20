@@ -1,6 +1,7 @@
 import React, { ComponentType } from 'react';
-import { PointFactory, Point } from '@Reducers/fleet';
 import { BoardProps } from '@Components/board/Board';
+import { RecordOf } from 'immutable';
+import { CellFactory, CellProps } from '@Components/row/Row';
 
 const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({
   rows,
@@ -14,15 +15,15 @@ const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({
 
   const rowKeys = rows.map((row) => row.get('key'));
   const rowsHeader = rowKeys.map((rowKey) =>
-    PointFactory({
+    CellFactory({
       key: rowKey,
     })
   );
   const rowWithRowsHeader = rows.map((row, rowIndex) => {
     const rowHeader = rowsHeader.get(rowIndex);
 
-    const points = row.get('points');
-    return row.set('points', points.unshift(rowHeader as Point));
+    const cells = row.get('cells');
+    return row.set('cells', cells.unshift(rowHeader as RecordOf<CellProps>));
   });
 
   if (!cellsHeader) {
@@ -35,7 +36,7 @@ const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({
   }
 
   const cellsHeaderWithRowHeader = cellsHeader.unshift(
-    PointFactory({
+    CellFactory({
       key: ' ',
     })
   );

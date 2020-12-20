@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Sea, Cell } from '@Components';
-import { List, RecordOf } from 'immutable';
+import { List, Record, RecordOf } from 'immutable';
 
 const mapTypeToInnerComponent = new Map<string, React.ComponentType>([
   ['CELL', Cell],
@@ -13,7 +13,12 @@ export interface CellProps {
   type: 'SEA' | 'CELL';
 }
 
-type Cells = List<RecordOf<CellProps>>;
+export const CellFactory = Record<CellProps>({
+  key: null,
+  type: 'CELL',
+});
+
+export type Cells = List<RecordOf<CellProps>>;
 
 const Row = ({
   cells,

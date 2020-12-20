@@ -8,16 +8,29 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Row } from '@Components';
-import { PointsRecords, Points } from '@Reducers/fleet';
 import { withRowsHeader, withCellsHeader } from '@Hoc';
+import { Cells } from '@Components/row/Row';
+import { List, Record, RecordOf } from 'immutable';
 
 const styles = (theme: Theme) =>
   createStyles({ paper: { padding: theme.spacing(2) } });
 
+interface RowProps {
+  key: null | string;
+  cells: Cells;
+}
+
+export const RowFactory = Record<RowProps>({
+  key: null,
+  cells: List([]),
+});
+
+export type Rows = List<RecordOf<RowProps>>;
+
 export interface BoardProps {
   includedRowsHeader?: boolean;
-  cellsHeader?: Points;
-  rows: PointsRecords;
+  cellsHeader?: Cells;
+  rows: Rows;
 }
 
 const getGridItemStyle = (cellSize: number): CSSProperties => {
@@ -36,9 +49,9 @@ const getGridItemStyle = (cellSize: number): CSSProperties => {
   };
 };
 
-export const getLargestCellSize = (rows: PointsRecords): number => {
+export const getLargestCellSize = (rows: Rows): number => {
   return rows.reduce((largestCellSize, row) => {
-    const size = row.get('points')?.size;
+    const size = row.get('cells')?.size;
     if (largestCellSize < size) {
       return size;
     }
@@ -60,9 +73,9 @@ const Board = ({
 
       {rows.map((row) => {
         const key = row.get('key');
-        const points = row.get('points');
+        const cells = row.get('cells');
 
-        return <Row key={key} cells={points} gridItemStyle={gridItemStyle} />;
+        return <Row key={key} cells={cells} gridItemStyle={gridItemStyle} />;
       })}
     </Paper>
   );

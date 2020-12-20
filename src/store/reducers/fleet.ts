@@ -8,14 +8,14 @@ const dumbArray = [...Array(NUBMER_OF_FLEET_SIZE)];
 
 interface PointProps extends CellProps {}
 
-export const PointFactory = Record<PointProps>({
+const PointFactory = Record<PointProps>({
   key: null,
   type: 'CELL',
 });
 
-export type Point = RecordOf<PointProps>;
+type Point = RecordOf<PointProps>;
 
-export type Points = List<Point>;
+type Points = List<Point>;
 
 const points: Points = List(
   dumbArray.map((dumbValue, index) => {
@@ -26,17 +26,17 @@ const points: Points = List(
   })
 );
 
-type PointsRecordProps = {
+interface PointsRecordProps {
   key: null | string;
   points: Points;
-};
+}
 
-export const PointsRecordFactory = Record<PointsRecordProps>({
+const PointsRecordFactory = Record<PointsRecordProps>({
   key: null,
   points: List([]),
 });
 
-export type PointsRecord = RecordOf<PointsRecordProps>;
+type PointsRecord = RecordOf<PointsRecordProps>;
 
 export type PointsRecords = List<PointsRecord>;
 

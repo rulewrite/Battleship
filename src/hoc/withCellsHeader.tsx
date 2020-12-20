@@ -1,7 +1,7 @@
 import { List } from 'immutable';
 import React, { ComponentType } from 'react';
-import { PointFactory } from '@Reducers/fleet';
 import { BoardProps, getLargestCellSize } from '@Components/board/Board';
+import { CellFactory } from '@Components/row/Row';
 
 const withCellsHeader = (WrappedComponent: ComponentType<BoardProps>) => (
   props: BoardProps
@@ -10,18 +10,18 @@ const withCellsHeader = (WrappedComponent: ComponentType<BoardProps>) => (
   const cellsHeader = List(
     [...Array(getLargestCellSize(rows))].map((dumbValue, index) => {
       if (!includedRowsHeader) {
-        return PointFactory({
+        return CellFactory({
           key: `${index + 1}`,
         });
       }
 
       if (index === 0) {
-        return PointFactory({
+        return CellFactory({
           key: ' ',
         });
       }
 
-      return PointFactory({
+      return CellFactory({
         key: `${index}`,
       });
     })

@@ -10,7 +10,9 @@ import {
 import { Board, Sea } from '@Components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { RowFactory, Rows } from '@Components/board/Board';
 import { PointsRecords } from '@Reducers/fleet';
+import { List } from 'immutable';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -21,7 +23,7 @@ const styles = (theme: Theme) =>
   });
 
 interface AppProps {
-  rows: PointsRecords;
+  rows: Rows;
 }
 
 const App = ({ classes, rows }: WithStyles<typeof styles> & AppProps) => {
@@ -42,9 +44,27 @@ const App = ({ classes, rows }: WithStyles<typeof styles> & AppProps) => {
 
 export default compose<ComponentType>(
   withStyles(styles),
-  connect((state: any): any => {
-    return {
-      rows: state.getIn(['fleet', 'pointsRecords']),
-    };
-  })
+  connect(
+    (state: any): AppProps => {
+      const pointsRecords: PointsRecords = state.getIn([
+        'fleet',
+        'pointsRecords',
+      ]);
+
+      if (!pointsRecords) {
+        return {
+          rows: List([]),
+        };
+      }
+
+      return {
+        rows: pointsRecords.map((pointsRecord) => {
+          return RowFactory({
+            key: pointsRecord.get('key'),
+            cells: pointsRecord.get('points'),
+          });
+        }),
+      };
+    }
+  )
 )(App);
