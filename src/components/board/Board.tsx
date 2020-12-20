@@ -15,6 +15,7 @@ const styles = (theme: Theme) =>
   createStyles({ paper: { padding: theme.spacing(2) } });
 
 interface BoardProps {
+  includedRowsHeader?: boolean;
   cellsHeader?: Points;
   rows: PointsRecords;
 }
@@ -70,11 +71,23 @@ const Board = ({
 const withCellsHeader = (WrappedComponent: ComponentType<BoardProps>) => (
   props: BoardProps
 ) => {
-  const { rows } = props;
+  const { rows, includedRowsHeader } = props;
   const cellsHeader = List(
     [...Array(getLargestCellSize(rows))].map((dumbValue, index) => {
+      if (!includedRowsHeader) {
+        return PointFactory({
+          key: `${index + 1}`,
+        });
+      }
+
+      if (index === 0) {
+        return PointFactory({
+          key: ' ',
+        });
+      }
+
       return PointFactory({
-        key: String(index + 1),
+        key: `${index}`,
       });
     })
   );
@@ -87,6 +100,11 @@ const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({
   cellsHeader,
   ...otherProps
 }: BoardProps) => {
+  const otherPropsWithIncludeRowsHeader = {
+    ...otherProps,
+    includedRowsHeader: true,
+  };
+
   const rowKeys = rows.map((row) => row.get('key'));
   const rowsHeader = rowKeys.map((rowKey) =>
     PointFactory({
@@ -101,7 +119,12 @@ const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({
   });
 
   if (!cellsHeader) {
-    return <WrappedComponent {...otherProps} rows={rowWithRowsHeader} />;
+    return (
+      <WrappedComponent
+        {...otherPropsWithIncludeRowsHeader}
+        rows={rowWithRowsHeader}
+      />
+    );
   }
 
   const cellsHeaderWithRowHeader = cellsHeader.unshift(
@@ -111,7 +134,7 @@ const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({
   );
   return (
     <WrappedComponent
-      {...otherProps}
+      {...otherPropsWithIncludeRowsHeader}
       rows={rowWithRowsHeader}
       cellsHeader={cellsHeaderWithRowHeader}
     />
@@ -119,7 +142,7 @@ const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({
 };
 
 export default compose<ComponentType<BoardProps>>(
-  withCellsHeader,
   withRowsHeader,
+  withCellsHeader,
   withStyles(styles)
 )(Board);
