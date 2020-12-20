@@ -11,14 +11,10 @@ const mapTypeToInnerComponent = new Map<string, React.ComponentType>([
 interface CellProps {
   key: null | string;
   type: 'SEA' | 'CELL';
-  gridItemStyle: React.CSSProperties;
+  style: React.CSSProperties;
 }
 
-const Cell: React.ComponentType<CellProps> = ({
-  type,
-  gridItemStyle,
-  children,
-}) => {
+const Cell: React.ComponentType<CellProps> = ({ type, children, style }) => {
   const InnerComponent = mapTypeToInnerComponent.get(type);
 
   if (!InnerComponent) {
@@ -26,7 +22,7 @@ const Cell: React.ComponentType<CellProps> = ({
   }
 
   return (
-    <Grid item style={gridItemStyle}>
+    <Grid item style={style}>
       <InnerComponent>{children}</InnerComponent>
     </Grid>
   );

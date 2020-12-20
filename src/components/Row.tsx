@@ -17,10 +17,10 @@ export type Cells = List<RecordOf<CellProps>>;
 
 const Row = ({
   cells,
-  gridItemStyle,
+  cellStyle,
 }: {
   cells: Cells;
-  gridItemStyle: React.CSSProperties;
+  cellStyle: React.CSSProperties;
 }) => {
   return (
     <Grid container>
@@ -29,7 +29,7 @@ const Row = ({
         const type = cell.get('type');
 
         return (
-          <Cell key={key} type={type} gridItemStyle={gridItemStyle}>
+          <Cell key={key} type={type} style={cellStyle}>
             {key}
           </Cell>
         );

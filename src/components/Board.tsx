@@ -23,7 +23,7 @@ export interface BoardProps {
   rows: Rows;
 }
 
-const getGridItemStyle = (cellSize: number): CSSProperties => {
+const getCellStyle = (cellSize: number): CSSProperties => {
   if (!cellSize) {
     return {};
   }
@@ -32,10 +32,10 @@ const getGridItemStyle = (cellSize: number): CSSProperties => {
     return {};
   }
 
-  const gridItemWidthPercentage = 100 / cellSize;
+  const cellWidthPercentage = 100 / cellSize;
   return {
-    maxWidth: `${gridItemWidthPercentage}%`,
-    flexBasis: `${gridItemWidthPercentage}%`,
+    maxWidth: `${cellWidthPercentage}%`,
+    flexBasis: `${cellWidthPercentage}%`,
   };
 };
 
@@ -51,17 +51,17 @@ export const getLargestCellSize = (rows: Rows): number => {
 
 const Board = ({ rows, cellsHeader }: BoardProps) => {
   const largestCellSize = getLargestCellSize(rows);
-  const gridItemStyle = getGridItemStyle(largestCellSize);
+  const cellStyle = getCellStyle(largestCellSize);
 
   return (
     <Panel>
-      {cellsHeader && <Row cells={cellsHeader} gridItemStyle={gridItemStyle} />}
+      {cellsHeader && <Row cells={cellsHeader} cellStyle={cellStyle} />}
 
       {rows.map((row) => {
         const key = row.get('key');
         const cells = row.get('cells');
 
-        return <Row key={key} cells={cells} gridItemStyle={gridItemStyle} />;
+        return <Row key={key} cells={cells} cellStyle={cellStyle} />;
       })}
     </Panel>
   );
