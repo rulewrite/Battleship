@@ -23,14 +23,14 @@ interface BoardProps {
   rows: PointsRecords;
 }
 
-const getGridItemStyle = (gridWidthPercentage: number): CSSProperties => {
-  if (gridWidthPercentage < 1) {
+const getGridItemStyle = (gridItemWidthPercentage: number): CSSProperties => {
+  if (gridItemWidthPercentage < 1) {
     return {};
   }
 
   return {
-    maxWidth: `${gridWidthPercentage}%`,
-    flexBasis: `${gridWidthPercentage}%`,
+    maxWidth: `${gridItemWidthPercentage}%`,
+    flexBasis: `${gridItemWidthPercentage}%`,
   };
 };
 
@@ -46,8 +46,8 @@ const getLargestCellSize = (rows: PointsRecords): number => {
 
 const Board = ({ classes, rows }: WithStyles<typeof styles> & BoardProps) => {
   const largestCellSize = getLargestCellSize(rows);
-  const gridWidthPercentage = 100 / largestCellSize;
-  const gridItemStyle = getGridItemStyle(gridWidthPercentage);
+  const gridItemWidthPercentage = 100 / largestCellSize;
+  const gridItemStyle = getGridItemStyle(gridItemWidthPercentage);
 
   return (
     <Paper className={classes.paper}>
