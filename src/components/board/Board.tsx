@@ -82,26 +82,26 @@ const withCellsHeader = (WrappedComponent: ComponentType<BoardProps>) => (
   return <WrappedComponent {...props} cellsHeader={cellsHeader} />;
 };
 
-const withRowHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
+const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({
   rows,
   cellsHeader,
   ...otherProps
 }: BoardProps) => {
   const rowKeys = rows.map((row) => row.get('key'));
-  const rowHeaders = rowKeys.map((rowKey) =>
+  const rowsHeader = rowKeys.map((rowKey) =>
     PointFactory({
       key: rowKey,
     })
   );
-  const rowWithRowHeaders = rows.map((row, rowIndex) => {
-    const rowHeader = rowHeaders.get(rowIndex);
+  const rowWithRowsHeader = rows.map((row, rowIndex) => {
+    const rowHeader = rowsHeader.get(rowIndex);
 
     const points = row.get('points');
     return row.set('points', points.unshift(rowHeader as Point));
   });
 
   if (!cellsHeader) {
-    return <WrappedComponent {...otherProps} rows={rowWithRowHeaders} />;
+    return <WrappedComponent {...otherProps} rows={rowWithRowsHeader} />;
   }
 
   const cellsHeaderWithRowHeader = cellsHeader.unshift(
@@ -112,7 +112,7 @@ const withRowHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
   return (
     <WrappedComponent
       {...otherProps}
-      rows={rowWithRowHeaders}
+      rows={rowWithRowsHeader}
       cellsHeader={cellsHeaderWithRowHeader}
     />
   );
@@ -120,6 +120,6 @@ const withRowHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
 
 export default compose<ComponentType<BoardProps>>(
   withCellsHeader,
-  withRowHeaders,
+  withRowsHeader,
   withStyles(styles)
 )(Board);
