@@ -1,19 +1,9 @@
 import React, { ComponentType, CSSProperties } from 'react';
 import { compose } from 'redux';
-import {
-  withStyles,
-  Paper,
-  createStyles,
-  Theme,
-  WithStyles,
-} from '@material-ui/core';
-import { Row } from '@Components';
+import { Panel, Row } from '@Components';
 import { withRowsHeader, withCellsHeader } from '@Hoc';
 import { Cells } from '@Components/Row';
 import { List, Record, RecordOf } from 'immutable';
-
-const styles = (theme: Theme) =>
-  createStyles({ paper: { padding: theme.spacing(2) } });
 
 interface RowProps {
   key: null | string;
@@ -59,16 +49,12 @@ export const getLargestCellSize = (rows: Rows): number => {
   }, 0);
 };
 
-const Board = ({
-  classes,
-  rows,
-  cellsHeader,
-}: WithStyles<typeof styles> & BoardProps) => {
+const Board = ({ rows, cellsHeader }: BoardProps) => {
   const largestCellSize = getLargestCellSize(rows);
   const gridItemStyle = getGridItemStyle(largestCellSize);
 
   return (
-    <Paper className={classes.paper}>
+    <Panel>
       {cellsHeader && <Row cells={cellsHeader} gridItemStyle={gridItemStyle} />}
 
       {rows.map((row) => {
@@ -77,12 +63,11 @@ const Board = ({
 
         return <Row key={key} cells={cells} gridItemStyle={gridItemStyle} />;
       })}
-    </Paper>
+    </Panel>
   );
 };
 
 export default compose<ComponentType<BoardProps>>(
   withRowsHeader,
-  withCellsHeader,
-  withStyles(styles)
+  withCellsHeader
 )(Board);
