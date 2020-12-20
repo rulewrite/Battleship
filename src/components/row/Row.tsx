@@ -1,18 +1,25 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Sea, Cell } from '@Components';
-import { Points } from '@Reducers/board';
+import { List, RecordOf } from 'immutable';
 
 const mapTypeToInnerComponent = new Map<string, React.ComponentType>([
   ['CELL', Cell],
   ['SEA', Sea],
 ]);
 
+export interface CellProps {
+  key: null | string;
+  type: 'SEA' | 'CELL';
+}
+
+type Cells = List<RecordOf<CellProps>>;
+
 const Row = ({
   cells,
   gridItemStyle,
 }: {
-  cells: Points;
+  cells: Cells;
   gridItemStyle: React.CSSProperties;
 }) => {
   return (

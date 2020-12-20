@@ -1,19 +1,15 @@
 import { fromJS, List, Record } from 'immutable';
 import type { RecordOf } from 'immutable';
+import { CellProps } from '@Components/row/Row';
 
 const A_CODE = 65;
 const NUBMER_OF_BOARD_SIZE = 10;
 const dumbArray = [...Array(NUBMER_OF_BOARD_SIZE)];
 
-type PointProps = {
-  key: null | string;
-  isClicked: boolean;
-  type: 'SEA' | 'CELL';
-};
+interface PointProps extends CellProps {}
 
 export const PointFactory = Record<PointProps>({
   key: null,
-  isClicked: false,
   type: 'CELL',
 });
 
