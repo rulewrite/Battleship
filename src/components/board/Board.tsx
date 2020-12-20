@@ -8,7 +8,7 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Row } from '@Components';
-import { PointsRecords, Points } from '@Reducers/board';
+import { PointsRecords, Points } from '@Reducers/fleet';
 import { withRowsHeader, withCellsHeader } from '@Hoc';
 
 const styles = (theme: Theme) =>

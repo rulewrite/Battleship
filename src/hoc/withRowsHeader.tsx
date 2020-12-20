@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { PointFactory, Point } from '@Reducers/board';
+import { PointFactory, Point } from '@Reducers/fleet';
 import { BoardProps } from '@Components/board/Board';
 
 const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({

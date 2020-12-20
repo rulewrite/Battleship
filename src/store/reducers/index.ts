@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux-immutable';
-import board from './board';
+import fleet from './fleet';
 
 const rootReducer = combineReducers({
-  board,
+  fleet,
 });
 
 export default rootReducer;

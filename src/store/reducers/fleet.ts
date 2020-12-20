@@ -3,8 +3,8 @@ import type { RecordOf } from 'immutable';
 import { CellProps } from '@Components/row/Row';
 
 const A_CODE = 65;
-const NUBMER_OF_BOARD_SIZE = 10;
-const dumbArray = [...Array(NUBMER_OF_BOARD_SIZE)];
+const NUBMER_OF_FLEET_SIZE = 10;
+const dumbArray = [...Array(NUBMER_OF_FLEET_SIZE)];
 
 interface PointProps extends CellProps {}
 
@@ -52,8 +52,8 @@ const pointsRecords: PointsRecords = List(
 // TODO: 희소 행렬에 맞는 자료 구조로 변경
 const initialState = { pointsRecords };
 
-const board = (state = fromJS(initialState), action: { type: string }) => {
+const fleet = (state = fromJS(initialState), action: { type: string }) => {
   return state;
 };
 
-export default board;
+export default fleet;
