@@ -24,11 +24,15 @@ interface BoardProps {
 }
 
 const getGridItemStyle = (cellSize: number): CSSProperties => {
-  const gridItemWidthPercentage = 100 / cellSize;
-  if (gridItemWidthPercentage < 1) {
+  if (!cellSize) {
     return {};
   }
 
+  if (cellSize === Infinity) {
+    return {};
+  }
+
+  const gridItemWidthPercentage = 100 / cellSize;
   return {
     maxWidth: `${gridItemWidthPercentage}%`,
     flexBasis: `${gridItemWidthPercentage}%`,
