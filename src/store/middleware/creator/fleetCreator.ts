@@ -1,12 +1,14 @@
 import { List, Record } from 'immutable';
 import type { RecordOf } from 'immutable';
-import { CellProps } from '@Components/Row';
 
 const A_CODE = 65;
 const NUBMER_OF_FLEET_SIZE = 10;
 const dumbArray = [...Array(NUBMER_OF_FLEET_SIZE)];
 
-interface PointProps extends CellProps {}
+interface PointProps {
+  key: null | string;
+  type: 'SEA' | 'CELL';
+}
 
 const PointFactory = Record<PointProps>({
   key: null,
