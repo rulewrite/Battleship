@@ -9,7 +9,7 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Row } from '@Components';
-import { Rows, ColumnRecord, RowRecord, Column } from '@Reducers/board';
+import { Rows, ColumnFactory, RowFactory, Column } from '@Reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({ paper: { padding: theme.spacing(2) } });
@@ -63,11 +63,11 @@ const withColumnHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
   ...otherProps
 }: BoardProps) => {
   const columnKey = ' ';
-  const columnHeaders = RowRecord({
+  const columnHeaders = RowFactory({
     key: columnKey,
     columns: List(
       [...Array(getLargestColumnSize(rows))].map((dumbValue, index) => {
-        return ColumnRecord({
+        return ColumnFactory({
           key: String(index + 1),
         });
       })
@@ -85,7 +85,7 @@ const withRowHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
 }: BoardProps) => {
   const rowKeys = rows.map((row) => row.get('key'));
   const rowHeaders = rowKeys.map((rowKey) =>
-    ColumnRecord({
+    ColumnFactory({
       key: rowKey,
     })
   );

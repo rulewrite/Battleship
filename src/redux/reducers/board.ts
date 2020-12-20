@@ -11,7 +11,7 @@ type ColumnProps = {
   type: 'sea' | 'cell';
 };
 
-export const ColumnRecord = Record<ColumnProps>({
+export const ColumnFactory = Record<ColumnProps>({
   key: null,
   isClicked: false,
   type: 'cell',
@@ -23,7 +23,7 @@ export type Columns = List<Column>;
 
 const columns: Columns = List(
   dumbArray.map((dumbValue, index) => {
-    return ColumnRecord({
+    return ColumnFactory({
       key: String(index + 1),
       type: 'sea',
     });
@@ -35,7 +35,7 @@ type RowProps = {
   columns: Columns;
 };
 
-export const RowRecord = Record<RowProps>({
+export const RowFactory = Record<RowProps>({
   key: null,
   columns: List([]),
 });
@@ -46,7 +46,7 @@ export type Rows = List<Row>;
 
 const rows: Rows = List(
   dumbArray.map((dumbValue, index) => {
-    return RowRecord({
+    return RowFactory({
       key: String.fromCharCode(A_CODE + index),
       columns,
     });
