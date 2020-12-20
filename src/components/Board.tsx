@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import { Row } from '@Components';
 import { withRowsHeader, withCellsHeader } from '@Hoc';
-import { Cells } from '@Components/row/Row';
+import { Cells } from '@Components/Row';
 import { List, Record, RecordOf } from 'immutable';
 
 const styles = (theme: Theme) =>

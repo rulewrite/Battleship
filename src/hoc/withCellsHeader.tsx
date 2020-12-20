@@ -1,7 +1,7 @@
 import { List } from 'immutable';
 import React, { ComponentType } from 'react';
-import { BoardProps, getLargestCellSize } from '@Components/board/Board';
-import { CellFactory } from '@Components/row/Row';
+import { BoardProps, getLargestCellSize } from '@Components/Board';
+import { CellFactory } from '@Components/Row';
 
 const withCellsHeader = (WrappedComponent: ComponentType<BoardProps>) => (
   props: BoardProps

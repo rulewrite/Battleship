@@ -1,6 +1,6 @@
 import { fromJS, List, Record } from 'immutable';
 import type { RecordOf } from 'immutable';
-import { CellProps } from '@Components/row/Row';
+import { CellProps } from '@Components/Row';
 
 const A_CODE = 65;
 const NUBMER_OF_FLEET_SIZE = 10;

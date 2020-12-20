@@ -10,7 +10,7 @@ import {
 import { Board, Sea } from '@Components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { RowFactory, Rows } from '@Components/board/Board';
+import { RowFactory, Rows } from '@Components/Board';
 import { PointsRecords } from '@Reducers/fleet';
 import { List } from 'immutable';
 

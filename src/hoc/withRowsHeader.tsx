@@ -1,7 +1,7 @@
 import React, { ComponentType } from 'react';
-import { BoardProps } from '@Components/board/Board';
+import { BoardProps } from '@Components/Board';
 import { RecordOf } from 'immutable';
-import { CellFactory, CellProps } from '@Components/row/Row';
+import { CellFactory, CellProps } from '@Components/Row';
 
 const withRowsHeader = (WrappedComponent: ComponentType<BoardProps>) => ({
   rows,
