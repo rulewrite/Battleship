@@ -1,10 +1,10 @@
 import { Button, withStyles } from '@material-ui/core';
 
-const Cell = withStyles({
+const CellBase = withStyles({
   root: {
     width: '100%',
     minWidth: 'initial',
   },
 })(Button);
 
-export default Cell;
+export default CellBase;

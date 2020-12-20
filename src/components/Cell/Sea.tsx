@@ -1,4 +1,4 @@
-import { Cell } from '@Components';
+import CellBase from './CellBase';
 import { withStyles } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
 
@@ -10,6 +10,6 @@ const Sea = withStyles({
       backgroundColor: blue[700],
     },
   },
-})(Cell);
+})(CellBase);
 
 export default Sea;

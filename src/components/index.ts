@@ -1,7 +1,6 @@
-import Cell from './Cell';
-import Sea from './Sea';
+import Cell from './Cell/Cell';
 import Board from './Board';
 import Row from './Row';
 import Panel from './Panel';
 
-export { Cell, Sea, Board, Row, Panel };
+export { Cell, Board, Row, Panel };

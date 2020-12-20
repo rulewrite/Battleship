@@ -1,12 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import { Sea, Cell } from '@Components';
+import { Cell } from '@Components';
 import { List, Record, RecordOf } from 'immutable';
-
-const mapTypeToInnerComponent = new Map<string, React.ComponentType>([
-  ['CELL', Cell],
-  ['SEA', Sea],
-]);
 
 export interface CellProps {
   key: null | string;
@@ -33,16 +28,10 @@ const Row = ({
         const key = cell.get('key');
         const type = cell.get('type');
 
-        const InnerComponent = mapTypeToInnerComponent.get(type);
-
-        if (!InnerComponent) {
-          return null;
-        }
-
         return (
-          <Grid item key={key} style={gridItemStyle}>
-            <InnerComponent>{key}</InnerComponent>
-          </Grid>
+          <Cell key={key} type={type} gridItemStyle={gridItemStyle}>
+            {key}
+          </Cell>
         );
       })}
     </Grid>
