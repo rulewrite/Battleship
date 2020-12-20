@@ -10,7 +10,7 @@ import {
 import { Board, Sea } from '@Components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Rows } from '@Reducers/board';
+import { PointsRecords } from '@Reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -21,7 +21,7 @@ const styles = (theme: Theme) =>
   });
 
 interface AppProps {
-  rows: Rows;
+  rows: PointsRecords;
 }
 
 const App = ({ classes, rows }: WithStyles<typeof styles> & AppProps) => {
@@ -44,7 +44,7 @@ export default compose<ComponentType>(
   withStyles(styles),
   connect((state: any): any => {
     return {
-      rows: state.getIn(['board', 'rows']),
+      rows: state.getIn(['board', 'pointsRecords']),
     };
   })
 )(App);

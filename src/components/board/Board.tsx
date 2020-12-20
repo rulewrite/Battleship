@@ -9,13 +9,18 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Row } from '@Components';
-import { Rows, PointFactory, RowFactory, Point } from '@Reducers/board';
+import {
+  PointsRecords,
+  PointFactory,
+  PointsRecordFactory,
+  Point,
+} from '@Reducers/board';
 
 const styles = (theme: Theme) =>
   createStyles({ paper: { padding: theme.spacing(2) } });
 
 interface BoardProps {
-  rows: Rows;
+  rows: PointsRecords;
 }
 
 const getGridItemStyle = (gridWidthPercentage: number): CSSProperties => {
@@ -29,7 +34,7 @@ const getGridItemStyle = (gridWidthPercentage: number): CSSProperties => {
   };
 };
 
-const getLargestCellSize = (rows: Rows): number => {
+const getLargestCellSize = (rows: PointsRecords): number => {
   return rows.reduce((largestCellSize, row) => {
     const size = row.get('points')?.size;
     if (largestCellSize < size) {
@@ -60,7 +65,7 @@ const withPointHeaders = (WrappedComponent: ComponentType<BoardProps>) => ({
   rows,
   ...otherProps
 }: BoardProps) => {
-  const pointHeaders = RowFactory({
+  const pointHeaders = PointsRecordFactory({
     key: ' ',
     points: List(
       [...Array(getLargestCellSize(rows))].map((dumbValue, index) => {

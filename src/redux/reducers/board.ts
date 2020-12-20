@@ -30,23 +30,23 @@ const points: Points = List(
   })
 );
 
-type RowProps = {
+type PointsRecordProps = {
   key: null | string;
   points: Points;
 };
 
-export const RowFactory = Record<RowProps>({
+export const PointsRecordFactory = Record<PointsRecordProps>({
   key: null,
   points: List([]),
 });
 
-export type Row = RecordOf<RowProps>;
+export type PointsRecord = RecordOf<PointsRecordProps>;
 
-export type Rows = List<Row>;
+export type PointsRecords = List<PointsRecord>;
 
-const rows: Rows = List(
+const pointsRecords: PointsRecords = List(
   dumbArray.map((dumbValue, index) => {
-    return RowFactory({
+    return PointsRecordFactory({
       key: String.fromCharCode(A_CODE + index),
       points,
     });
@@ -54,7 +54,7 @@ const rows: Rows = List(
 );
 
 // TODO: 희소 행렬에 맞는 자료 구조로 변경
-const initialState = { rows };
+const initialState = { pointsRecords };
 
 const board = (state = fromJS(initialState), action: { type: string }) => {
   return state;
