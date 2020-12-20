@@ -1,7 +1,12 @@
+import { Action } from '@Actions';
 import { combineReducers } from 'redux-immutable';
 import fleet from './fleet';
 
-const rootReducer = combineReducers({
+export interface State {
+  [stateKey: string]: any;
+}
+
+const rootReducer = combineReducers<State, Action>({
   fleet,
 });
 

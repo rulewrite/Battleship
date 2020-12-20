@@ -1,9 +1,12 @@
 import { Action } from '@Actions';
 import * as actionTypes from '@ActionTypes';
+import { State } from '@Reducers';
 import { Middleware } from 'redux';
 import fleetCreator from './fleetCreator';
 
-const creator: Middleware<{}, any> = (store) => (next) => (action: Action) => {
+const creator: Middleware<{}, State> = (store) => (next) => (
+  action: Action
+) => {
   const { type } = action;
 
   switch (type) {

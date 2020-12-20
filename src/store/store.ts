@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './reducers';
+import rootReducer, { State } from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import creator from './middleware/creator';
 
-const configureStore = (preloadedState?: any) => {
+const configureStore = (preloadedState?: State) => {
   const middleware = applyMiddleware(thunk, creator);
 
   if (process.env.NODE_ENV === 'production') {

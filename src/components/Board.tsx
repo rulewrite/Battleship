@@ -7,6 +7,7 @@ import { List, Record, RecordOf } from 'immutable';
 import { Fleet } from '@Creator/fleetCreator';
 import { connect, ConnectedProps } from 'react-redux';
 import { createFleet } from '@Actions';
+import { State } from '@Reducers';
 
 interface RowProps {
   key: null | string;
@@ -51,7 +52,7 @@ export const getLargestCellSize = (rows: Rows): number => {
 };
 
 const connector = connect(
-  (state: any) => {
+  (state: State) => {
     const playerFleet: Fleet = state.getIn(['fleet', 'player']);
 
     if (!playerFleet) {
